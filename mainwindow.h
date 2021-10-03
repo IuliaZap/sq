@@ -23,5 +23,6 @@ private slots:
 private:
     sound_g * generator = new sound_g();
     Ui::MainWindow *ui;
+    struct bitss;
 
 };

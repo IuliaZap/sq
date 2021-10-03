@@ -19,15 +19,28 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+struct MainWindow::bitss{
+    bool b0 : 1;
+    bool b1 : 1;
+    bool b2 : 1;
+    bool b3 : 1;
+    bool b4 : 1;
+    bool b5 : 1;
+    bool b6 : 1;
+    bool b7 : 1;
+}ex;
+
+
 void MainWindow::on_pushButton_clicked(){
+    const bitss bin_digits2 ={0, 1 , 0 , 0 , 0 , 0 , 0 , 0} ;
     const uint f1 = 400;
     const uint f2 = 1000;
     const uint duration = 200;
     const qreal amplitude   = 0.1;
     //binary
     const char bin_digits[4] ="01";
-    std::vector<char[32]> *binary;
-    int i = sizeof (char)*8;
+    std::vector<bitss> *binary;
+    //int i = sizeof (char)*8;
     std::string str_massage = ui->plainTextEdit->toPlainText().toStdString();
     int sizem = str_massage.size();
 
@@ -38,7 +51,8 @@ void MainWindow::on_pushButton_clicked(){
             char tmp = str_massage[a];
             char d = (tmp&1);
             tmp >>= 1;
-            binary->at(a)[di]=bin_digits[d];
+
+            binary->at(ex.b0) =  (bin_digits2>>d);
         }
     }
 
