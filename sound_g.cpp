@@ -42,9 +42,9 @@ sound_g::~sound_g(){
   * \param msecs     The tone's duration. Minimum is 50 msecs, every value below that will be set to 50 msecs.
   */
 
-//добавление в soundBuffer одного отрезка передаваемой информации
+//добавление в soundBuffer одного символа передаваемой информации:
 void sound_g::appendSound(qreal amplitude, quint32 frequency, quint32 msecs){
-    msecs = (msecs < 50) ? 50 : msecs;
+    msecs = (msecs < 50) ? 50 : msecs;//проверка на длительность одного символа в миллисекундах
 
     qreal singleWaveTime = 1.0 / frequency;
     qreal samplesPerWave = qCeil(format->sampleRate() * singleWaveTime);
@@ -93,9 +93,9 @@ void sound_g::stop(){
     output->stop();
 }
 
-sound_g * sound_g::generatorHelper = new  sound_g();
+sound_g * sound_g::generatorHelper = new  sound_g(); //***Ё динамическое выделение памяти
 
-void sound_g::playSound(qreal amplitude, quint32 frequency, quint32 msecs){
+void sound_g::playSound(qreal amplitude, quint32 frequency, quint32 msecs){ //***Func - использует объект помошник для отчистки буфера, добавления иходных данных в генерацию сигнала и проигрывания
     generatorHelper->clear();
     generatorHelper->appendSound(amplitude, frequency, msecs);
     generatorHelper->play();

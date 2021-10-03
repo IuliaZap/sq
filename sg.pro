@@ -1,4 +1,4 @@
-QT       += core gui multimedia
+QT       += core gui multimedia  # важно подключиить multimedia, иначе в проекте не будут видны QAudioInput, QAudioOutput...
 
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
