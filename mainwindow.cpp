@@ -24,32 +24,64 @@ void MainWindow::on_pushButton_clicked(){
     const uint f2 = 1000;
     const uint duration = 200;
     const qreal amplitude   = 0.1;
-    //__
-    std::string show_me_what_you_ve_got = ui->plainTextEdit->toPlainText().toStdString();
-    int size = show_me_what_you_ve_got.size();
-    std::vector<char> data;
-        std::vector<std::bitset<8>> data_bit;
-        data.resize(size);
-        data_bit.resize(size*8);
-        for(int i=0;i<size; ++i){
-             data[i]= show_me_what_you_ve_got.c_str()[i];
-        }
-        for(int i=0;i<size; ++i){
-            data_bit[i] = std::bitset<8>(data[i]);
+    //binary
+    const char bin_digits[4] ="01";
+    std::vector<char[32]> *binary;
+    int i = sizeof (char)*8;
+    std::string str_massage = ui->plainTextEdit->toPlainText().toStdString();
+    int sizem = str_massage.size();
 
-            for(int i =0; i<size*8; ++i){
-                if(data_bit[i]==1)
-                    generator->appendSound(amplitude, f1, duration);
+    binary->resize(sizem);
 
-                else if(data_bit[i]==0)
-                    generator->appendSound(amplitude, f2, duration);
-            }
+    for(int a=0; a<sizem;++a){
+        for(int di=7; di>=0; --di){
+            char tmp = str_massage[a];
+            char d = (tmp&1);
+            tmp >>= 1;
+            binary->at(a)[di]=bin_digits[d];
         }
-                generator->play();
     }
 
+    for(int a=0; a<sizem;++a){
+        for(int di=7; di>=0; --di){
+            if(binary->at(a)[di]==1)
+                generator->appendSound(amplitude, f1, duration);
+            else if(binary->at(a)[di]==0)
+                generator->appendSound(amplitude, f2, duration);
+        }
+    }
+    generator->play();
+
+
+
+}
     //__
-    //generator->appendSound(amplitude, f1, duration);
+
+        /*std::string str_massage = ui->plainTextEdit->toPlainText().toStdString();
+        int size = str_massage.size();
+        std::vector<char> data;
+            std::vector<std::bitset<8>> data_bit;
+            data.resize(size);
+            data_bit.resize(size*8);
+            for(int i=0;i<size; ++i){
+                 data[i]= str_massage.c_str()[i];
+            }
+            for(int i=0;i<size; ++i){
+                data_bit[i] = std::bitset<8>(data[i]);
+
+                for(int i =0; i<size*8; ++i){
+                    if(data_bit[i]==1)
+                        generator->appendSound(amplitude, f1, duration);//
+
+                    else if(data_bit[i]==0)
+                        generator->appendSound(amplitude, f2, duration);
+                }
+            }
+
+        }*/
+
+    //__
+    //generator->appendSound(amplitude, f1, duration); //генерация синусоды при нажатии кнопки короткой равной длительности буфера soundBuffer
     //generator->play();
 
 
